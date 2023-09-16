@@ -1,0 +1,138 @@
+[
+    {
+        "id": 17,
+        "icon": "../svg/solid/address-book.svg",
+        "name": "address-book",
+        "category": "Classic",
+        "style": "Solid",
+        "feature": "Sponsored"
+    },
+    {
+        "id": 18,
+        "icon": "../svg/solid/address-card.svg",
+        "name": "address-card",
+        "category": "Pro",
+        "style": "Solid",
+        "feature": "Popular"
+    },
+    {
+        "id": 19,
+        "icon": "../svg/solid/bell.svg",
+        "name": "bell",
+        "category": "Free",
+        "style": "Solid",
+        "feature": "Sponsored"
+    },
+    {
+        "id": 20,
+        "icon": "../svg/solid/clock.svg",
+        "name": "clock",
+        "category": "Pro",
+        "style": "Solid",
+        "feature": "Popular"
+    },
+    {
+        "id": 21,
+        "icon": "../svg/solid/clone.svg",
+        "name": "clone",
+        "category": "Free",
+        "style": "Solid",
+        "feature": "Sponsored"
+    },
+    {
+        "id": 22,
+        "icon": "../svg/solid/closed-captioning.svg",
+        "name": "closed-captioning",
+        "category": "Classic",
+        "style": "Solid",
+        "feature": "Popular"
+    },
+    {
+        "id": 23,
+        "icon": "../svg/solid/id-card.svg",
+        "name": "id-card",
+        "category": "Pro",
+        "style": "Solid",
+        "feature": "Sponsored"
+    },
+    {
+        "id": 24,
+        "icon": "../svg/solid/image.svg",
+        "name": "image",
+        "category": "Free",
+        "style": "Solid",
+        "feature": "Popular"
+    },
+    {
+        "id": 25,
+        "icon": "../svg/solid/images.svg",
+        "name": "images",
+        "category": "Classic",
+        "style": "Solid",
+        "feature": "Sponsored"
+    },
+    {
+        "id": 26,
+        "icon": "../svg/solid/keyboard.svg",
+        "name": "keyboard",
+        "category": "Pro",
+        "style": "Solid",
+        "feature": "Popular"
+    },
+    {
+        "id": 27,
+        "icon": "../svg/solid/lemon.svg",
+        "name": "lemon",
+        "category": "Free",
+        "style": "Solid",
+        "feature": "Sponsored"
+    },
+    {
+        "id": 28,
+        "icon": "../svg/solid/sun.svg",
+        "name": "sun",
+        "category": "Classic",
+        "style": "Solid",
+        "feature": "Popular"
+    },
+    {
+        "id": 29,
+        "icon": "../svg/solid/tags.svg",
+        "name": "tags",
+        "category": "Pro",
+        "style": "Solid",
+        "feature": "Sponsored"
+    },
+    {
+        "id": 30,
+        "icon": "../svg/solid/tape.svg",
+        "name": "tape",
+        "category": "Free",
+        "style": "Solid",
+        "feature": "Popular"
+    },
+    {
+        "id": 31,
+        "icon": "../svg/solid/tarp-droplet.svg",
+        "name": "tarp-droplet",
+        "category": "Classic",
+        "style": "Solid",
+        "feature": "Sponsored"
+    },
+    {
+        "id": 32,
+        "icon": "../svg/solid/tarp.svg",
+        "name": "tarp",
+        "category": "Pro",
+        "style": "Solid",
+        "feature": "Popular"
+    },
+    {
+        "id": 33,
+        "icon": "../svg/solid/taxi.svg",
+        "name": "taxi",
+        "category": "Pro",
+        "style": "Solid",
+        "feature": "Popular"
+    }
+]

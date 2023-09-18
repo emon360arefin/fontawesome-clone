@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBolt, faCircle, faCircleHalfStroke, faIcons, faSackDollar, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBolt, faCircle, faCircleHalfStroke, faDollarSign, faFireFlameCurved, faIcons, faSackDollar, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
     const [icons, setIcons] = useState(null);
@@ -8,6 +8,7 @@ const Home = () => {
     const [hoverStyle, setHoverStyle] = useState(null);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedStyles, setSelectedStyles] = useState([]);
+    const [selectedFeatures, setSelectedFeatures] = useState([]);
     const [tags, setTags] = useState([]);
     const [sortOrder, setSortOrder] = useState('featured'); // Added sorting state
     const [sortedIcons, setSortedIcons] = useState([]);
@@ -21,6 +22,11 @@ const Home = () => {
     const style = [
         { "id": 1, "icon": faCircle, "name": "Solid" },
         { "id": 2, "icon": faCircleHalfStroke, "name": "Regular" }
+    ]
+
+    const feature = [
+        { "id": 1, "icon": faDollarSign, "name": "Sponsored" },
+        { "id": 2, "icon": faFireFlameCurved, "name": "Popular" }
     ]
 
     useEffect(() => {
@@ -59,6 +65,19 @@ const Home = () => {
         handleSortingChange({ target: { value: sortOrder } });
     }
 
+
+    const toggleFeature = (featureName) => {
+        if (selectedFeatures.includes(featureName)) {
+            setSelectedFeatures(selectedFeatures.filter(feature => feature !== featureName));
+            setTags(tags.filter(tag => tag !== featureName));
+        } else {
+            setSelectedFeatures([...selectedFeatures, featureName]);
+            setTags([...tags, featureName]);
+        }
+
+        handleSortingChange({ target: { value: sortOrder } });
+    };
+
     const handleTags = (tagName) => {
         if (tags.includes(tagName)) {
             if (selectedCategories.includes(tagName)) {
@@ -66,6 +85,10 @@ const Home = () => {
             }
             if (selectedStyles.includes(tagName)) {
                 setSelectedStyles(selectedStyles.filter(style => style !== tagName));
+            }
+
+            if (selectedFeatures.includes(tagName)) {
+                setSelectedFeatures(selectedFeatures.filter(style => style !== tagName));
             }
             setTags(tags.filter(tag => tag !== tagName));
 
@@ -83,16 +106,25 @@ const Home = () => {
         handleSortingChange({ target: { value: sortOrder } });
         setTags([]);
         setSelectedCategories([]);
-        setSelectedStyles([])
+        setSelectedStyles([]);
+        setSelectedFeatures([]);
     }
 
     const isStyleSelected = (styleName) => selectedStyles.includes(styleName);
+    const isFeatureSelected = (styleName) => selectedFeatures.includes(styleName);
 
     // Filter icons based on selected style
     const filteredIconsByStyle = icons
         ? selectedStyles.length === 0
             ? icons
             : icons.filter(icon => selectedStyles.includes(icon.style))
+        : [];
+
+    // Filter icons based on selected features
+    const filteredIconsByFeature = icons
+        ? selectedFeatures.length === 0
+            ? icons
+            : icons.filter(icon => selectedFeatures.includes(icon.feature))
         : [];
 
     // Filter icons based on selected categories
@@ -171,7 +203,7 @@ const Home = () => {
                     {/* Sorting */}
                     <div className='w-2/6 h-6 flex items-center justify-end'>
                         <select
-                            className='px-6 py-3 border-2 border-[#C3C6D1] rounded-[12px]'
+                            className='px-6 py-3 border-2 border-[#C3C6D1] rounded-[12px] cursor-pointer'
                             id="sortingDropdown"
                             onChange={handleSortingChange}
                             value={sortOrder}
@@ -189,59 +221,118 @@ const Home = () => {
 
                         {/* Left Panel */}
                         <div className='w-full md:w-1/6 '>
-                            <h2 className='text-[12px] font-semibold text-[#616d8a]'>STYLE</h2>
 
-                            <div className='flex flex-wrap flex-row md:flex-col gap-4 mt-4'>
-                                {style.map(sty => (
-                                    <div
-                                        onClick={() => toggleStyle(sty.name)} // Toggle the style when clicked
-                                        onMouseEnter={() => setHoverStyle(sty.id)}
-                                        onMouseLeave={() => setHoverStyle(null)}
-                                        key={sty.id}
-                                        className={`flex items-center  justify-between gap-4 w-40 md:w-full border border-transparent hover:border-[#62697a] px-4 py-2 rounded-lg cursor-pointer ${selectedStyles.includes(sty.name) ? 'bg-[#146EBE]' : 'text-[#183153]'}`}
-                                    >
-                                        <div className='flex items-center gap-4'>
-                                            {selectedStyles.includes(sty.name) ? (
-                                                <div className='w-6'>
-                                                    <input
+                            {/* Style */}
+                            <div>
+                                <h2 className='text-[12px] font-semibold text-[#616d8a]'>STYLE</h2>
 
-                                                        type="checkbox"
-                                                        id={sty.name}
-                                                        name="myCheckbox"
-                                                        value={sty.name}
-                                                        checked={true}
-                                                        onChange={() => toggleStyle(sty.name)}
-                                                    />
-                                                </div>
-                                            ) : hoverStyle === sty.id ? (
-                                                <div className='w-6'>
-                                                    <input
-                                                        className='bg-white '
-                                                        type="checkbox"
-                                                        id={sty.name}
-                                                        name="myCheckbox"
-                                                        value={sty.name}
-                                                        checked={false}
-                                                        onChange={() => toggleStyle(sty.name)}
-                                                    />
-                                                </div>
-                                            ) : (
-                                                <div className='w-6'>
-                                                    <FontAwesomeIcon
-                                                        className={`-ml-[1px] text-[#616D8A]`}
-                                                        icon={sty.icon}
-                                                    />
-                                                </div>
-                                            )}
-                                            <h2 className={`text-[14px] ${isStyleSelected(sty.name) ? 'text-white' : 'text-[#183153]'}`}>{sty.name}</h2>
+                                <div className='flex flex-wrap flex-row md:flex-col gap-4 mt-4'>
+                                    {style.map(sty => (
+                                        <div
+                                            onClick={() => toggleStyle(sty.name)} // Toggle the style when clicked
+                                            onMouseEnter={() => setHoverStyle(sty.id)}
+                                            onMouseLeave={() => setHoverStyle(null)}
+                                            key={sty.id}
+                                            className={`flex items-center  justify-between gap-4 w-40 md:w-full border border-transparent hover:border-[#62697a] px-4 py-2 rounded-lg cursor-pointer ${selectedStyles.includes(sty.name) ? 'bg-[#146EBE]' : 'text-[#183153]'}`}
+                                        >
+                                            <div className='flex items-center gap-4'>
+                                                {selectedStyles.includes(sty.name) ? (
+                                                    <div className='w-6'>
+                                                        <input
+
+                                                            type="checkbox"
+                                                            id={sty.name}
+                                                            name="myCheckbox"
+                                                            value={sty.name}
+                                                            checked={true}
+                                                            onChange={() => toggleStyle(sty.name)}
+                                                        />
+                                                    </div>
+                                                ) : hoverStyle === sty.id ? (
+                                                    <div className='w-6'>
+                                                        <input
+                                                            className='bg-white '
+                                                            type="checkbox"
+                                                            id={sty.name}
+                                                            name="myCheckbox"
+                                                            value={sty.name}
+                                                            checked={false}
+                                                            onChange={() => toggleStyle(sty.name)}
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className='w-6'>
+                                                        <FontAwesomeIcon
+                                                            className={`-ml-[1px] text-[#616D8A]`}
+                                                            icon={sty.icon}
+                                                        />
+                                                    </div>
+                                                )}
+                                                <h2 className={`text-[14px] ${isStyleSelected(sty.name) ? 'text-white' : 'text-[#183153]'}`}>{sty.name}</h2>
+                                            </div>
+
+
+                                            <h2 className={`text-[14px] ${isStyleSelected(sty.name) ? 'text-white' : 'text-[#183153]'}`}>
+                                                {filteredIconsByStyle && filteredIconsByStyle.filter(icon => icon.style === sty.name).length}
+                                            </h2>
                                         </div>
+                                    ))}
+                                </div>
+                            </div>
 
 
-                                        <h2 className={`text-[14px] ${isStyleSelected(sty.name) ? 'text-white' : 'text-[#183153]'}`}>
-                                            {filteredIconsByStyle && filteredIconsByStyle.filter(icon => icon.style === sty.name).length}
-                                        </h2>
-                                    </div>
-                                ))}
+                            {/* Featured */}
+                            <div className='mt-6'>
+                                <h2 className='text-[12px] font-semibold text-[#616d8a]'>FEATURED</h2>
+                                <div className='flex flex-wrap flex-row md:flex-col gap-4 mt-4'>
+                                    {feature.map(feat => (
+                                        <div
+                                            onClick={() => toggleFeature(feat.name)} // Toggle the feature when clicked
+                                            onMouseEnter={() => setHoverStyle(feat.id)}
+                                            onMouseLeave={() => setHoverStyle(null)}
+                                            key={feat.id}
+                                            className={`flex items-center justify-between gap-4  md:w-full border border-transparent hover:border-[#62697a] px-4 py-2 rounded-lg cursor-pointer ${selectedFeatures.includes(feat.name) ? 'bg-[#146EBE]' : 'text-[#183153]'}`}
+                                        >
+                                            <div className='flex items-center gap-4'>
+                                                {selectedFeatures.includes(feat.name) ? (
+                                                    <div className='w-6'>
+                                                        <input
+                                                            type="checkbox"
+                                                            id={feat.name}
+                                                            name="myCheckbox"
+                                                            value={feat.name}
+                                                            checked={true}
+                                                            onChange={() => toggleFeature(feat.name)}
+                                                        />
+                                                    </div>
+                                                ) : hoverStyle === feat.id ? (
+                                                    <div className='w-6'>
+                                                        <input
+                                                            className='bg-white '
+                                                            type="checkbox"
+                                                            id={feat.name}
+                                                            name="myCheckbox"
+                                                            value={feat.name}
+                                                            checked={false}
+                                                            onChange={() => toggleFeature(feat.name)}
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className='w-6'>
+                                                        <FontAwesomeIcon
+                                                            className={`-ml-[1px] text-[#616D8A]`}
+                                                            icon={feat.icon}
+                                                        />
+                                                    </div>
+                                                )}
+                                                <h2 className={`text-[14px] ${isFeatureSelected(feat.name) ? 'text-white' : 'text-[#183153]'}`}>{feat.name}</h2>
+                                            </div>
+                                            <h2 className={`text-[14px] ${isFeatureSelected(feat.name) ? 'text-white' : 'text-[#183153]'}`}>
+                                                {filteredIconsByFeature && filteredIconsByFeature.filter(icon => icon.feature === feat.name).length}
+                                            </h2>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 

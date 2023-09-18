@@ -229,7 +229,7 @@
         "name": "tags",
         "category": "Pro",
         "style": "Solid",
-        "feature": "Sponsored"
+        "feature": "Popular"
     },
     {
         "id": 4,
@@ -253,7 +253,7 @@
         "name": "tarp-droplet",
         "category": "Classic",
         "style": "Solid",
-        "feature": "Sponsored"
+        "feature": "Popular"
     },
     {
         "id": 33,

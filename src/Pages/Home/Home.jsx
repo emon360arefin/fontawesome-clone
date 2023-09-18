@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt, faCircle, faCircleHalfStroke, faDollarSign, faFireFlameCurved, faIcons, faMagnifyingGlass, faSackDollar, faXmark } from '@fortawesome/free-solid-svg-icons';
-import Search from './Search';
+
 
 const Home = () => {
     const [icons, setIcons] = useState(null);
@@ -12,7 +12,7 @@ const Home = () => {
     const [selectedStyles, setSelectedStyles] = useState([]);
     const [selectedFeatures, setSelectedFeatures] = useState([]);
     const [tags, setTags] = useState([]);
-    const [sortOrder, setSortOrder] = useState('featured'); // Added sorting state
+    const [sortOrder, setSortOrder] = useState('featured');
     const [sortedIcons, setSortedIcons] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 

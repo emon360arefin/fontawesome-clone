@@ -209,14 +209,14 @@ const Home = () => {
                     <form
                         onChange={(e) => handleSearch(e)}
                         className='flex items-center justify-center'>
-                        <div className='border-2 border-[#183153] w-[750px] px-8 py-4 rounded-full flex items-center gap-4' >
+                        <div className='border-2 border-[#183153] w-[750px] pl-8 pr-2  rounded-full flex items-center gap-4' >
 
                             <FontAwesomeIcon className='text-lg text-[#183153]' icon={faMagnifyingGlass} />
 
                             <input
                                 type="text"
                                 name='search'
-                                className='border-0  focus:outline-none'
+                                className='border-0 w-full py-4 focus:outline-none rounded-full'
                                 placeholder='Search Icons'
                                 ref={searchInputRef} />
                         </div>

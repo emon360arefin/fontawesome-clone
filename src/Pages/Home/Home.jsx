@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBolt, faCircle, faCircleHalfStroke, faDollarSign, faFireFlameCurved, faIcons, faSackDollar, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBolt, faCircle, faCircleHalfStroke, faDollarSign, faFireFlameCurved, faIcons, faMagnifyingGlass, faSackDollar, faXmark } from '@fortawesome/free-solid-svg-icons';
+import Search from './Search';
 
 const Home = () => {
     const [icons, setIcons] = useState(null);
@@ -13,6 +14,8 @@ const Home = () => {
     const [tags, setTags] = useState([]);
     const [sortOrder, setSortOrder] = useState('featured'); // Added sorting state
     const [sortedIcons, setSortedIcons] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     const category = [
         { "id": 1, "icon": faIcons, "name": "Classic" },
@@ -146,8 +149,14 @@ const Home = () => {
             filtered = filtered.filter(icon => selectedFeatures.includes(icon.feature));
         }
 
+        if (searchQuery) {
+            filtered = filtered.filter(icon =>
+                icon.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
         return filtered;
-    }, [icons, selectedStyles, selectedCategories, selectedFeatures]);
+    }, [icons, selectedStyles, selectedCategories, selectedFeatures, searchQuery]);
 
     useEffect(() => {
         setSortedIcons(filteredIcons)
@@ -176,12 +185,40 @@ const Home = () => {
     }, [filteredIcons, sortOrder]);
 
 
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+        const searchTags = e.target.value.split(' ');
+        setTags(searchTags);
+    };
+
 
 
     return (
         <div className='bg-white pt-12 md:pt-16'>
-            {/* Filter Bar */}
+
             <div className='max-w-[1476px] mx-auto px-2'>
+
+
+                {/* <Search></Search> */}
+
+                <div>
+                    <form
+                        onChange={(e) => handleSearch(e)}
+                        className='flex items-center justify-center'>
+                        <div className='border-2 border-[#183153] w-[650px] px-8 py-4 rounded-full flex items-center gap-4' >
+
+                            <FontAwesomeIcon className='text-lg text-[#183153]' icon={faMagnifyingGlass} />
+
+                            <input
+                                type="text"
+                                className='border-0  focus:outline-none'
+                                placeholder='Search Icons' />
+                        </div>
+
+                    </form>
+                </div>
+
+                {/* Filter Bar */}
                 <div className='flex flex-col md:flex-row gap-4 bg-white justify-between items-center pb-8'>
                     {/* Category */}
                     <div className='w-full md:w-4/6 flex gap-2'>

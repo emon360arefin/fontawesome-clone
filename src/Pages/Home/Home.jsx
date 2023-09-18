@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt, faCircle, faCircleHalfStroke, faDollarSign, faFireFlameCurved, faIcons, faMagnifyingGlass, faSackDollar, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,6 +15,7 @@ const Home = () => {
     const [sortOrder, setSortOrder] = useState('featured');
     const [sortedIcons, setSortedIcons] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const searchInputRef = useRef(null);
 
 
     const category = [
@@ -112,6 +113,9 @@ const Home = () => {
         setSelectedCategories([]);
         setSelectedStyles([]);
         setSelectedFeatures([]);
+        setSearchQuery('');
+        searchInputRef.current.value = '';
+
     }
 
     const isStyleSelected = (styleName) => selectedStyles.includes(styleName);
@@ -194,32 +198,32 @@ const Home = () => {
 
 
     return (
-        <div className='bg-white pt-12 md:pt-16'>
+        <div className='bg-white pt-8 md:pt-10'>
 
             <div className='max-w-[1476px] mx-auto px-2'>
 
-
-                {/* <Search></Search> */}
-
+                {/* Search Box */}
                 <div>
                     <form
                         onChange={(e) => handleSearch(e)}
                         className='flex items-center justify-center'>
-                        <div className='border-2 border-[#183153] w-[650px] px-8 py-4 rounded-full flex items-center gap-4' >
+                        <div className='border-2 border-[#183153] w-[750px] px-8 py-4 rounded-full flex items-center gap-4' >
 
                             <FontAwesomeIcon className='text-lg text-[#183153]' icon={faMagnifyingGlass} />
 
                             <input
                                 type="text"
+                                name='search'
                                 className='border-0  focus:outline-none'
-                                placeholder='Search Icons' />
+                                placeholder='Search Icons'
+                                ref={searchInputRef} />
                         </div>
 
                     </form>
                 </div>
 
                 {/* Filter Bar */}
-                <div className='flex flex-col md:flex-row gap-4 bg-white justify-between items-center pb-8'>
+                <div className='flex flex-col md:flex-row gap-4 bg-white justify-between items-center pb-8 md:pb-0 mt-8'>
                     {/* Category */}
                     <div className='w-full md:w-4/6 flex gap-2'>
                         {category.map(cat => (

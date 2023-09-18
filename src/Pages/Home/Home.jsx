@@ -104,6 +104,8 @@ const Home = () => {
         }
 
         handleSortingChange({ target: { value: sortOrder } });
+        setSearchQuery('');
+        searchInputRef.current.value = '';
     }
 
     const handleReset = () => {

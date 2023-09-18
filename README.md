@@ -4,6 +4,7 @@ This webpage is an exact replica of the FontAwesome search page. Here I clone th
 **Key Features**: 
 1. Implement multiple category selection functionality which allows users to select multiple filters simultaneously
 2. Sorting the fetched data in ascending alphabetic order
-3. Used TailwindCSS for full responsive design and deployed in Netlify
+3. Implement the search functionality with real-time result
+4. Used TailwindCSS for full responsive design and deployed in Netlify
 
 **Live Website Link:** https://fontawesome-emonarefin.netlify.app/

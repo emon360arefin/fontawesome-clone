@@ -24,9 +24,9 @@ const Footer = () => {
                     </div>
 
                     {/* Right Column */}
-                    <div className='w-full md:w-3/5 flex gap-16 justify-end'>
+                    <div className='w-full md:w-3/5 grid grid-cols-2 md:grid-cols-3 gap-6 md:pl-32'>
 
-                        <div>
+                        <div className=''>
                             <h2 className='text-[16px] text-[#616d8a] font-semibold'>Project</h2>
                             <ul className='flex flex-col gap-2 text-white text-[16px] cursor-pointer  mt-4'>
                                 <li className='hover:text-[#74c0fc]'>Download</li>
@@ -48,7 +48,7 @@ const Footer = () => {
                         </div>
 
 
-                        <div>
+                        <div className='mt-4 md:mt-0'>
                             <h2 className='text-[16px] text-[#616d8a] font-semibold'>Help</h2>
                             <ul className='flex flex-col gap-2 text-white text-[16px] cursor-pointer  mt-4'>
                                 <li className='hover:text-[#74c0fc]'>Support</li>
@@ -62,7 +62,7 @@ const Footer = () => {
                 </div>
 
 
-                <div className='flex flex-col md:flex-row mt-8 items-center justify-between'>
+                <div className='flex flex-col md:flex-row mt-8 items-start justify-between gap-2'>
                     <ul className='flex gap-6 text-white text-[14px] cursor-pointer'>
                         <li className='hover:text-[#74c0fc]'>Licence</li>
                         <li className='hover:text-[#74c0fc]'>Terms of Services</li>

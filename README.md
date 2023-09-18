@@ -1,8 +1,9 @@
-# React + Vite
+# Fontawesome Clone
+This webpage is an exact replica of the FontAwesome search page. Here I clone the exact same look as well as some key features like multiple selections simultaneously. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Key Features**: 
+1. Implement multiple category selection functionality which allows users to select multiple filters simultaneously
+2. Sorting the fetched data in ascending alphabetic order
+3. Used TailwindCSS for full responsive design and deployed in Netlify
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Live Website Link:** https://fontawesome-emonarefin.netlify.app/

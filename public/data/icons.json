@@ -1,19 +1,19 @@
 [
     {
-        "id": 1,
-        "icon": "../svg/regular/address-book.svg",
-        "name": "address-book",
-        "category": "Classic",
-        "style": "Regular",
-        "feature": "Sponsored"
-    },
-    {
         "id": 2,
         "icon": "../svg/regular/address-card.svg",
         "name": "address-card",
         "category": "Pro",
         "style": "Regular",
         "feature": "Popular"
+    },
+    {
+        "id": 13,
+        "icon": "../svg/regular/sun.svg",
+        "name": "sun",
+        "category": "Pro",
+        "style": "Regular",
+        "feature": "Sponsored"
     },
     {
         "id": 3,
@@ -24,11 +24,11 @@
         "feature": "Sponsored"
     },
     {
-        "id": 4,
-        "icon": "../svg/regular/clock.svg",
-        "name": "clock",
+        "id": 32,
+        "icon": "../svg/solid/tarp.svg",
+        "name": "tarp",
         "category": "Pro",
-        "style": "Regular",
+        "style": "Solid",
         "feature": "Popular"
     },
     {
@@ -64,6 +64,14 @@
         "feature": "Popular"
     },
     {
+        "id": 1,
+        "icon": "../svg/regular/address-book.svg",
+        "name": "address-book",
+        "category": "Classic",
+        "style": "Regular",
+        "feature": "Sponsored"
+    },
+    {
         "id": 9,
         "icon": "../svg/regular/images.svg",
         "name": "images",
@@ -94,14 +102,6 @@
         "category": "Classic",
         "style": "Regular",
         "feature": "Popular"
-    },
-    {
-        "id": 13,
-        "icon": "../svg/regular/sun.svg",
-        "name": "sun",
-        "category": "Pro",
-        "style": "Regular",
-        "feature": "Sponsored"
     },
     {
         "id": 14,
@@ -232,6 +232,14 @@
         "feature": "Sponsored"
     },
     {
+        "id": 4,
+        "icon": "../svg/regular/clock.svg",
+        "name": "clock",
+        "category": "Pro",
+        "style": "Regular",
+        "feature": "Popular"
+    },
+    {
         "id": 30,
         "icon": "../svg/solid/tape.svg",
         "name": "tape",
@@ -246,14 +254,6 @@
         "category": "Classic",
         "style": "Solid",
         "feature": "Sponsored"
-    },
-    {
-        "id": 32,
-        "icon": "../svg/solid/tarp.svg",
-        "name": "tarp",
-        "category": "Pro",
-        "style": "Solid",
-        "feature": "Popular"
     },
     {
         "id": 33,

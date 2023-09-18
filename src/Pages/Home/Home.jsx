@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBolt, faCircle, faCircleHalfStroke, faIcons, faSackDollar, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +8,9 @@ const Home = () => {
     const [hoverStyle, setHoverStyle] = useState(null);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedStyles, setSelectedStyles] = useState([]);
-    const [tags, setTags] = useState([])
+    const [tags, setTags] = useState([]);
+    const [sortOrder, setSortOrder] = useState('featured'); // Added sorting state
+    const [sortedIcons, setSortedIcons] = useState([]);
 
     const category = [
         { "id": 1, "icon": faIcons, "name": "Classic" },
@@ -24,17 +26,24 @@ const Home = () => {
     useEffect(() => {
         fetch('/data/icons.json')
             .then(res => res.json())
-            .then(data => setIcons(data))
+            .then(data => {
+                setIcons(data);
+                setSortedIcons(data); // Initialize sortedIcons with the default data
+            });
     }, []);
 
     const handleCategoryClick = (categoryName) => {
         if (selectedCategories.includes(categoryName)) {
             setSelectedCategories(selectedCategories.filter(cat => cat !== categoryName));
             setTags(tags.filter(tag => tag !== categoryName));
+
         } else {
             setSelectedCategories([...selectedCategories, categoryName]);
             setTags([...tags, categoryName])
+
         }
+
+        handleSortingChange({ target: { value: sortOrder } });
     }
 
 
@@ -46,6 +55,8 @@ const Home = () => {
             setSelectedStyles([...selectedStyles, styleName]);
             setTags([...tags, styleName])
         }
+
+        handleSortingChange({ target: { value: sortOrder } });
     }
 
     const handleTags = (tagName) => {
@@ -57,12 +68,19 @@ const Home = () => {
                 setSelectedStyles(selectedStyles.filter(style => style !== tagName));
             }
             setTags(tags.filter(tag => tag !== tagName));
+
+
         } else {
             setTags([...tags, tagName])
+
         }
+
+        handleSortingChange({ target: { value: sortOrder } });
     }
 
     const handleReset = () => {
+        setSortOrder("featured");
+        handleSortingChange({ target: { value: sortOrder } });
         setTags([]);
         setSelectedCategories([]);
         setSelectedStyles([])
@@ -78,11 +96,48 @@ const Home = () => {
         : [];
 
     // Filter icons based on selected categories
-    const filteredIcons = filteredIconsByStyle
-        ? selectedCategories.length === 0
-            ? filteredIconsByStyle
-            : filteredIconsByStyle.filter(icon => selectedCategories.includes(icon.category))
-        : [];
+    const filteredIcons = useMemo(() => {
+        if (!icons) return [];
+
+        let filtered = [...icons];
+
+        if (selectedStyles.length > 0) {
+            filtered = filtered.filter(icon => selectedStyles.includes(icon.style));
+        }
+
+        if (selectedCategories.length > 0) {
+            filtered = filtered.filter(icon => selectedCategories.includes(icon.category));
+        }
+
+        return filtered;
+    }, [icons, selectedStyles, selectedCategories]);
+
+    useEffect(() => {
+        setSortedIcons(filteredIcons)
+    }, [filteredIcons])
+
+
+    const handleSortingChange = (event) => {
+        if (event.target.value === "ascending") {
+            setSortOrder("ascending");
+            const sortedIconsAscending = [...filteredIcons].sort((a, b) => a.name.localeCompare(b.name));
+            setSortedIcons(sortedIconsAscending);
+        } else {
+            setSortOrder("featured");
+            setSortedIcons(filteredIcons); // Reset to the original unsorted state
+        }
+    }
+
+    useEffect(() => {
+        // Sort the icons whenever filteredIcons or sortOrder changes
+        if (sortOrder === "ascending") {
+            const sortedIconsAscending = [...filteredIcons].sort((a, b) => a.name.localeCompare(b.name));
+            setSortedIcons(sortedIconsAscending);
+        } else {
+            setSortedIcons(filteredIcons);
+        }
+    }, [filteredIcons, sortOrder]);
+
 
 
 
@@ -90,7 +145,7 @@ const Home = () => {
         <div className='bg-white py-12 md:py-16'>
             {/* Filter Bar */}
             <div className='max-w-[1476px] mx-auto px-2'>
-                <div className='flex gap-4 bg-white justify-between items-center pb-8'>
+                <div className='flex flex-col md:flex-row gap-6 bg-white justify-between items-center pb-8'>
                     {/* Category */}
                     <div className='w-4/6 flex gap-2'>
                         {category.map(cat => (
@@ -112,11 +167,17 @@ const Home = () => {
                             </div>
                         ))}
                     </div>
+
                     {/* Sorting */}
                     <div className='w-2/6 h-6 flex items-center justify-end'>
-                        <select className='px-6 py-3 border-2 border-[#C3C6D1] rounded-[12px]' id="sortingDropdown">
+                        <select
+                            className='px-6 py-3 border-2 border-[#C3C6D1] rounded-[12px]'
+                            id="sortingDropdown"
+                            onChange={handleSortingChange}
+                            value={sortOrder}
+                        >
                             <option value="featured">Featured</option>
-                            <option value="alphabetical">Alphabetical</option>
+                            <option value="ascending">Alphabetical</option>
                         </select>
                     </div>
                 </div>
@@ -124,7 +185,7 @@ const Home = () => {
             {/* Icons Showcase */}
             <div className='bg-[#F0F1F3] py-6'>
                 <div className='max-w-[1476px] mx-auto px-2'>
-                    <div className='flex flex-col md:flex-row gap-4 '>
+                    <div className='flex flex-col md:flex-row gap-6 '>
 
                         {/* Left Panel */}
                         <div className='w-full md:w-1/6 '>
@@ -187,8 +248,8 @@ const Home = () => {
                         {/* Right Panel */}
                         <div className='w-full md:w-5/6 '>
 
-                            <div className='flex items-center gap-6'>
-                                <h2 className='text-[20px] text-[#183153] font-semibold'>{filteredIcons && filteredIcons.length} Icons</h2>
+                            <div className='flex flex-col md:flex-row  gap-4'>
+                                <h2 className='text-[20px] text-start text-[#183153] font-semibold'>{sortedIcons && sortedIcons.length} Icons</h2>
 
                                 <div className='flex items-center gap-4 flex-wrap'>
                                     {
@@ -212,14 +273,19 @@ const Home = () => {
                                 </div>
                             </div>
 
-                            <div className='grid grid-cols-3 md:grid-cols-9 gap-4 mt-4'>
-                                {filteredIcons.map(icon => (
+                            <div className='grid grid-cols-3 md:grid-cols-9 gap-4 mt-6'>
+                                {sortedIcons.map(icon => (
                                     <div
                                         key={icon.id}
-                                        className='px-[12px] py-6 bg-white hover:bg-[#ffd43b] flex flex-col items-center justify-center gap-2 rounded-[10px] cursor-pointer'
+                                        className='px-[12px] py-6 bg-white hover:bg-[#ffd43b] flex flex-col items-center justify-center gap-2 rounded-[10px] cursor-pointer relative'
                                     >
                                         <img className='w-[32px] opacity-[85%]' src={icon.icon} alt="" />
                                         <h2 className='text-[12px] text-center font-light'>{icon.name}</h2>
+
+
+                                        {
+                                            icon.category === 'Pro' ? <h2 className='absolute -top-2 bg-[#FFD43B] px-3 flex items-center rounded-lg pt-[2px]  text-[12px] font-medium'>PRO</h2> : ''
+                                        }
                                     </div>
                                 ))}
                             </div>

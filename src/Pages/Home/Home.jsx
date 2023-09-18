@@ -6,6 +6,7 @@ const Home = () => {
     const [icons, setIcons] = useState(null);
     const [hoverCategory, setHoverCategory] = useState(null);
     const [hoverStyle, setHoverStyle] = useState(null);
+    const [hoverFeature, setHoverFeature] = useState(null);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedStyles, setSelectedStyles] = useState([]);
     const [selectedFeatures, setSelectedFeatures] = useState([]);
@@ -141,8 +142,12 @@ const Home = () => {
             filtered = filtered.filter(icon => selectedCategories.includes(icon.category));
         }
 
+        if (selectedFeatures.length > 0) {
+            filtered = filtered.filter(icon => selectedFeatures.includes(icon.feature));
+        }
+
         return filtered;
-    }, [icons, selectedStyles, selectedCategories]);
+    }, [icons, selectedStyles, selectedCategories, selectedFeatures]);
 
     useEffect(() => {
         setSortedIcons(filteredIcons)
@@ -288,8 +293,8 @@ const Home = () => {
                                     {feature.map(feat => (
                                         <div
                                             onClick={() => toggleFeature(feat.name)} // Toggle the feature when clicked
-                                            onMouseEnter={() => setHoverStyle(feat.id)}
-                                            onMouseLeave={() => setHoverStyle(null)}
+                                            onMouseEnter={() => setHoverFeature(feat.id)}
+                                            onMouseLeave={() => setHoverFeature(null)}
                                             key={feat.id}
                                             className={`flex items-center justify-between gap-4  md:w-full border border-transparent hover:border-[#62697a] px-4 py-2 rounded-lg cursor-pointer ${selectedFeatures.includes(feat.name) ? 'bg-[#146EBE]' : 'text-[#183153]'}`}
                                         >
@@ -305,7 +310,7 @@ const Home = () => {
                                                             onChange={() => toggleFeature(feat.name)}
                                                         />
                                                     </div>
-                                                ) : hoverStyle === feat.id ? (
+                                                ) : hoverFeature === feat.id ? (
                                                     <div className='w-6'>
                                                         <input
                                                             className='bg-white '

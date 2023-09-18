@@ -142,7 +142,7 @@ const Home = () => {
 
 
     return (
-        <div className='bg-white py-12 md:py-16'>
+        <div className='bg-white pt-12 md:pt-16'>
             {/* Filter Bar */}
             <div className='max-w-[1476px] mx-auto px-2'>
                 <div className='flex flex-col md:flex-row gap-6 bg-white justify-between items-center pb-8'>
@@ -183,7 +183,7 @@ const Home = () => {
                 </div>
             </div>
             {/* Icons Showcase */}
-            <div className='bg-[#F0F1F3] py-6'>
+            <div className='bg-[#F0F1F3] pt-8 pb-12'>
                 <div className='max-w-[1476px] mx-auto px-2'>
                     <div className='flex flex-col md:flex-row gap-6 '>
 
@@ -273,7 +273,7 @@ const Home = () => {
                                 </div>
                             </div>
 
-                            <div className='grid grid-cols-3 md:grid-cols-9 gap-4 mt-6'>
+                            <div className='grid grid-cols-3 md:grid-cols-9 gap-4 mt-8'>
                                 {sortedIcons.map(icon => (
                                     <div
                                         key={icon.id}

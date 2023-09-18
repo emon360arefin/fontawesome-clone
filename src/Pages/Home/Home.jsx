@@ -177,9 +177,9 @@ const Home = () => {
         <div className='bg-white pt-12 md:pt-16'>
             {/* Filter Bar */}
             <div className='max-w-[1476px] mx-auto px-2'>
-                <div className='flex flex-col md:flex-row gap-6 bg-white justify-between items-center pb-8'>
+                <div className='flex flex-col md:flex-row gap-4 bg-white justify-between items-center pb-8'>
                     {/* Category */}
-                    <div className='w-4/6 flex gap-2'>
+                    <div className='w-full md:w-4/6 flex gap-2'>
                         {category.map(cat => (
                             <div
                                 onClick={() => handleCategoryClick(cat.name)}
@@ -201,7 +201,7 @@ const Home = () => {
                     </div>
 
                     {/* Sorting */}
-                    <div className='w-2/6 h-6 flex items-center justify-end'>
+                    <div className='w-full md:w-2/6  flex items-center justify-center'>
                         <select
                             className='px-6 py-3 border-2 border-[#C3C6D1] rounded-[12px] cursor-pointer'
                             id="sortingDropdown"
